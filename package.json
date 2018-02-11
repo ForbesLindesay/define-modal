@@ -1,0 +1,26 @@
+{
+  "name": "define-modal",
+  "version": "0.0.0",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "dependencies": {
+    "react": "^16.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^9.4.4",
+    "@types/react": "^16.0.36",
+    "typescript": "^2.7.1"
+  },
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "tsc",
+    "pretest": "npm run build",
+    "test": "mocha -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ForbesLindesay/define-modal.git"
+  },
+  "author": "ForbesLindesay",
+  "license": "MIT"
+}
