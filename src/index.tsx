@@ -99,7 +99,7 @@ export default function defineModal<TInput, TResult>(
         <Component
           key={key}
           input={input}
-          state={ModalState.Open}
+          state={state}
           resolve={onResolve}
           reject={onReject}
         />
