@@ -27,11 +27,17 @@ export interface Options {
   closeAnimationDuration?: number;
 }
 
+export interface ContainerProps {
+  children: React.ReactNode;
+  state: ModalState;
+  onClose: () => void;
+}
 export interface BackdropProps {
   state: ModalState;
-  onClick: () => void;
+  onClose: () => void;
 }
 export interface ModalDialogsProps {
+  container?: React.ComponentType<ContainerProps>;
   backdrop?: React.ComponentType<BackdropProps>;
 }
 export interface State {
@@ -63,20 +69,40 @@ export class ModalDialogs extends React.Component<ModalDialogsProps, State> {
       return (
         <Component
           state={this.state.activeModals[0].state}
-          onClick={this._onBackdropClick}
+          onClose={this._onBackdropClick}
         />
       );
     }
     return (
-      <Component state={ModalState.Open} onClick={this._onBackdropClick} />
+      <Component state={ModalState.Open} onClose={this._onBackdropClick} />
     );
   }
   render() {
-    return (
+    const children = (
       <React.Fragment>
         {this._renderBackdrop()}
         {this.state.activeModals.map(m => m.element)}
       </React.Fragment>
+    );
+    const Component = this.props.backdrop;
+    if (this.state.activeModals.length === 0 || !Component) {
+      return children;
+    }
+    if (this.state.activeModals.length === 1) {
+      return (
+        <Component
+          children={children}
+          state={this.state.activeModals[0].state}
+          onClose={this._onBackdropClick}
+        />
+      );
+    }
+    return (
+      <Component
+        children={children}
+        state={ModalState.Open}
+        onClose={this._onBackdropClick}
+      />
     );
   }
 }
