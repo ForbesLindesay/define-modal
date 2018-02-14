@@ -88,9 +88,11 @@ export default function defineModal<TInput, TResult>(
       const onResolve = (
         result: PromiseLike<TResult | null> | TResult | null,
       ) => {
+        close();
         resolve(result);
       };
       const onReject = (err: any) => {
+        close();
         reject(err);
       };
       const render = (state: ModalState) => (
