@@ -84,7 +84,7 @@ export class ModalDialogs extends React.Component<ModalDialogsProps, State> {
         {this.state.activeModals.map(m => m.element)}
       </React.Fragment>
     );
-    const Component = this.props.backdrop;
+    const Component = this.props.container;
     if (this.state.activeModals.length === 0 || !Component) {
       return children;
     }
