@@ -17,7 +17,7 @@ export enum ModalState {
   Open = 'open',
   Closing = 'closing',
 }
-export interface Props<TInput, TResult> {
+export interface ModalProps<TInput, TResult> {
   input: TInput;
   state: ModalState;
   resolve: (result: PromiseLike<TResult | null> | TResult | null) => void;
@@ -27,8 +27,12 @@ export interface Options {
   closeAnimationDuration?: number;
 }
 
+export interface BackdropProps {
+  state: ModalState;
+  onClick: () => void;
+}
 export interface ModalDialogsProps {
-  backdrop?: React.ComponentType<{state: ModalState; onClick: () => void}>;
+  backdrop?: React.ComponentType<BackdropProps>;
 }
 export interface State {
   activeModals: ActiveModal[];
@@ -78,7 +82,7 @@ export class ModalDialogs extends React.Component<ModalDialogsProps, State> {
 }
 
 export default function defineModal<TInput, TResult>(
-  Component: React.ComponentType<Props<TInput, TResult>>,
+  Component: React.ComponentType<ModalProps<TInput, TResult>>,
   options: Options = {},
 ): (input: TInput) => Promise<TResult | null> {
   return (input: TInput): Promise<TResult | null> => {
